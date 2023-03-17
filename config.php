@@ -1,4 +1,5 @@
 <?php
+    #connexion bdd 
     $db_username = 'root';
         $db_password = '';
         $db_name = 'chknrs';
