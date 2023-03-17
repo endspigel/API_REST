@@ -1,5 +1,5 @@
 <?php
-    #connexion à ma bdd
+    #connexion à ma BDD
     $db_username = 'root';
         $db_password = '';
         $db_name = 'api-auth';
