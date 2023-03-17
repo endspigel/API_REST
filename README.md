@@ -10,7 +10,7 @@ nombre d’étudiants dans le groupe est impair, seul un trinôme peut être con
 ## Cahier des charges fonctionnel
 
 ### Fonctions principales
-La solution à proposer est constituée de 3 fonctions principales :
+La solution à proposer est constituée de 3 fonctions principales :\n
   ● La publication, la consultation, la modification et la suppression des articles de blogs. Un article est caractérisé, a minima, par sa date de publication, son         auteur et son contenu.
   ● L’authentification des utilisateurs souhaitant interagir avec les articles. Cette fonctionnalité devra
     s’appuyer sur les JSON Web Token (JWT). Un utilisateur est caractérisé, a minima, par un nom d’utilisateur, un mot de passe et un rôle (moderator ou publisher).
