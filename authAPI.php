@@ -15,7 +15,7 @@
 
     $data = (array) json_decode(file_get_contents('php://input'), TRUE);
 
-    // Vérifie les identifiants envoyés via POST et renvoie un jeton JWT si les identifiants sont valides
+    // MODIF Vérifie les identifiants envoyés via POST et renvoie un jeton JWT si les identifiants sont valides
     if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($data['username']) && isset($data['password'])) {
         $username = $data['username'];
         $password = $data['password'];
