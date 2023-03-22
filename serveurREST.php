@@ -20,7 +20,7 @@
     switch ($http_method){
         /// Cas de la méthode GET
         case "GET" :
-            $query = "SELECT * FROM chuckn_facts";
+            $query = "SELECT * FROM article";
             $select = $database->prepare($query);
             $select->execute(array());
             $data = $select -> fetchAll();
