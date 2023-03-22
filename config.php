@@ -1,8 +1,9 @@
 <?php
-    #connexion à la BDD
+    # connexion à la BDD
+
     $db_username = 'root';
         $db_password = '';
-        $db_name = 'chknrs';
+        $db_name = 'api-auth';
         $db_host = '127.0.0.1:3306';
 
         try {
