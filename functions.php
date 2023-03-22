@@ -12,7 +12,7 @@
     function connexionBD(){
         $db_username = 'root';
         $db_password = '';
-        $db_name = 'chknrs';
+        $db_name = 'api-auth';
         $db_host = '127.0.0.1:3306';
 
         try {
@@ -26,7 +26,7 @@
     //Sélection totale
     function getAllData(){
         $database = connexionBD();
-        $query = "SELECT * FROM chuckn_facts";
+        $query = "SELECT * FROM api-auth";
         $select = $database->prepare($query);
         $select->execute(array());
         $data = $select -> fetchAll();
@@ -36,7 +36,7 @@
     //Sélection par un id
     function getById($id){
         $database = connexionBD();
-        $query = "SELECT * FROM chuckn_facts WHERE id=?";
+        $query = "SELECT * FROM api-auth WHERE id=?";
         $select = $database->prepare($query);
         $select->execute(array($id));
         $data = $select -> fetchAll();
@@ -46,7 +46,7 @@
     //Ajout d'une phrase
     function postNewPhrase($phrase){
         $database = connexionBD();
-        $query = "INSERT INTO chuckn_facts(phrase)VALUES(?,?,?,?,?,?)";
+        $query = "INSERT INTO api-auth(phrase)VALUES(?,?,?,?,?,?)";
         $insert = $database -> prepare($query);
         $insert -> execute($phrase);
     }
@@ -54,14 +54,14 @@
     //Modification d'une phrase
     function putPhrase($id, $phrase){
         $database = connexionBD();
-        $query = "UPDATE chuckn_facts SET phrase = ? WHERE id = ?";
+        $query = "UPDATE api-auth SET phrase = ? WHERE id = ?";
         $insert = $database->prepare($query);
         $insert->execute(array($phrase, $id));
     }
 
     function deletePhrase($id){
         $database = connexionBD();
-        $query = "DELETE FROM chuckn_facts WHERE id=$id";
+        $query = "DELETE FROM api-auth WHERE id=$id";
         $insert = $database -> prepare($query);
         $insert -> execute($id);
     }
