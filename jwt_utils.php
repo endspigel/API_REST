@@ -77,4 +77,15 @@ function get_bearer_token() {
     return null;
 }
 
+function get_jwt_from_request() {
+    $headers = getallheaders();
+    if (isset($headers['Authorization'])) {
+        $auth_header = $headers['Authorization'];
+        if (preg_match('/Bearer\s(\S+)/', $auth_header, $matches)) {
+            return $matches[1];
+        }
+    }
+    return null;
+}
+
 ?>
