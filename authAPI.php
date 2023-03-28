@@ -2,16 +2,26 @@
     // Inclure la bibliothèque pour générer les JWT
     require('jwt_utils.php');
 
-    // Identifiants en dur pour les tests
-    $valid_credentials = array(
-        'username' => 'johndoe',
-        'password' => 'password123'
-    );
-
     function isValidUser($username, $password){
-        global $valid_credentials;
-        return $username === $valid_credentials['username'] && $password === $valid_credentials['password'];
+        // Connexion à la base de données MySQL avec PDO
+    $pdo = new PDO('mysql:host=localhost;dbname=my_database;charset=utf8mb4', 'username', 'password');
+
+    // Préparation de la requête SQL pour récupérer l'utilisateur avec le nom d'utilisateur fourni
+    $stmt = $pdo->prepare('SELECT * FROM users WHERE username = :username');
+    $stmt->bindParam(':username', $username);
+    $stmt->execute();
+
+    // Récupération de l'utilisateur correspondant
+    $user = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    // Vérification si l'utilisateur existe et si le mot de passe fourni correspond au mot de passe stocké en base de données
+    if ($user && password_verify($password, $user['password'])) {
+        return true;
+    } else {
+        return false;
     }
+    }
+    
 
     $data = (array) json_decode(file_get_contents('php://input'), TRUE);
 
