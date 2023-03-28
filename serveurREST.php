@@ -54,6 +54,16 @@
             // GET consulter tous les articles
             // MODIFY : modifier un des articles de l'utilisateur
             // Delete : supprimer un de ses articles
+            switch($http_method){
+                case "GET":
+                    $query = "SELECT * FROM article";
+                    $select = $database->prepare($query);
+                    $select->execute(array());
+                    $data = $select -> fetchAll();
+                    break;
+                case "POST":
+                    $query = "INSERT INTO article"
+            }
             break;
         default:
             // Cas de l'utilisateur non authentifié
