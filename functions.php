@@ -23,7 +23,7 @@
         return $linkpdo;
     }
 
-    //Sélection totale
+    //Selection totale
     function getAllData(){
         $database = connexionBD();
         $query = "SELECT * FROM api-auth";
@@ -33,7 +33,7 @@
         return $data;
     }
 
-    //Sélection par un id
+    //Selection par un id
     function getById($id){
         $database = connexionBD();
         $query = "SELECT * FROM api-auth WHERE id=?";
@@ -44,22 +44,24 @@
     }
 
     //Ajout d'une phrase
-    function postNewPhrase($phrase){
+    function postNewPhrase($article){
         $database = connexionBD();
         $query = "INSERT INTO api-auth(phrase)VALUES(?,?,?,?,?,?)";
         $insert = $database -> prepare($query);
-        $insert -> execute($phrase);
+        $insert -> execute($article);
     }
 
-    //Modification d'une phrase
-    function putPhrase($id, $phrase){
+
+    //Modification d'un Article
+    function putArticle($id, $article){
         $database = connexionBD();
-        $query = "UPDATE api-auth SET phrase = ? WHERE id = ?";
+        $query = "UPDATE api-auth SET Article = ? WHERE id = ?";
         $insert = $database->prepare($query);
-        $insert->execute(array($phrase, $id));
+        $insert->execute(array($article, $id));
     }
 
-    function deletePhrase($id){
+    //Supprimer fication d'un Article
+    function deleteArticle($id){
         $database = connexionBD();
         $query = "DELETE FROM api-auth WHERE id=$id";
         $insert = $database -> prepare($query);
