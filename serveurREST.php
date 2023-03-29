@@ -13,12 +13,12 @@
     }
     
     $jwt_payload = (array) jwt_decode($jwt);
-    $user_id = $jwt_payload['user_id'];
+    $login = $jwt_payload['login'];
 
     // Interroger la base de données pour récupérer le rôle de l'utilisateur
     $db = new PDO('mysql:host=localhost;dbname=api-auth', 'root', '');
     $stmt = $db->prepare('SELECT nom FROM Role WHERE id = (SELECT id FROM Utilisateur WHERE login = :login)');
-    $stmt->bindParam(':login', $user_id);
+    $stmt->bindParam(':login', $login);
     $stmt->execute();
     $user_role = $stmt->fetchColumn();
 
@@ -44,8 +44,6 @@
                         $delete = $database->prepare($query);
                         $delete ->execute(array());
                     }
-
-                    
             }
             break;
         case('Publisher'):
@@ -62,7 +60,7 @@
                     $data = $select -> fetchAll();
                     break;
                 case "POST":
-                    $query = "INSERT INTO article"
+                    $query = "INSERT INTO article";
             }
             break;
         default:
