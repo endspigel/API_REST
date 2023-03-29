@@ -1,4 +1,5 @@
 <?php
+
 // Inclure la bibliothèque pour générer les JWT
 require('jwt_utils.php');
 
@@ -25,7 +26,6 @@ function isValidUser($username, $password){
         return false;
     }
 }
-
 // Vérifie les identifiants envoyés via POST et renvoie un jeton JWT si les identifiants sont valides
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login']) && isset($_POST['mdp'])) {
     $login = $_POST['login'];
@@ -39,6 +39,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login']) && isset($_P
         header('Content-Type: application/json');
         //echo json_encode(array('token' => $jwt));
         echo "Connexion réussie";
+        header('Location: accueil.php');
     } else {
         http_response_code(401); // Non autorisé
         echo "Nom d'utilisateur ou mot de passe incorrect.";
@@ -76,7 +77,4 @@ if (isset($_GET['token']) && is_jwt_valid($_GET['token'])){
         </form>
     </body>
     </html>
-    <?php
-}
-?>
-
+<?php }  ?>
