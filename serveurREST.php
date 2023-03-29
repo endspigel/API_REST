@@ -1,7 +1,7 @@
 <?php
     require('jwt_utils.php');
 
-    $jwt = get_jwt_from_request(); // fonction qui extrait le jeton JWT de la requête
+    $jwt = get_bearer_token(); // fonction qui extrait le jeton JWT de la requête
 
 
     //C'est pas bon car on a le cas où l'utilisateur n'est pas authentifié 
