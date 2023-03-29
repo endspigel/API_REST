@@ -1,7 +1,7 @@
 <?php
     require('jwt_utils.php');
 
-    $jwt = get_jwt_from_request(); // fonction qui extrait le jeton JWT de la requête
+    $jwt = get_bearer_token(); // fonction qui extrait le jeton JWT de la requête
 
 
     //C'est pas bon car on a le cas où l'utilisateur n'est pas authentifié 
@@ -54,6 +54,16 @@
             // GET consulter tous les articles
             // MODIFY : modifier un des articles de l'utilisateur
             // Delete : supprimer un de ses articles
+            switch($http_method){
+                case "GET":
+                    $query = "SELECT * FROM article";
+                    $select = $database->prepare($query);
+                    $select->execute(array());
+                    $data = $select -> fetchAll();
+                    break;
+                case "POST":
+                    $query = "INSERT INTO article"
+            }
             break;
         default:
             // Cas de l'utilisateur non authentifié
