@@ -18,7 +18,7 @@ function isValidUser($username, $password){
     // Récupération de l'utilisateur correspondant
     $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
-    var_dump($user);
+    // var_dump($user);
     // Vérification si l'utilisateur existe et si le mot de passe fourni correspond au mot de passe stocké en base de données
     if ($user && $password === $user['mdp']) {
         return true;
