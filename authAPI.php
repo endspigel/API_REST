@@ -39,7 +39,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login']) && isset($_P
         header('Content-Type: application/json');
         //echo json_encode(array('token' => $jwt));
         echo "Connexion réussie";
-        header('Location: accueil.php');
+        header('Location: serveurREST.php');
     } else {
         http_response_code(401); // Non autorisé
         echo "Nom d'utilisateur ou mot de passe incorrect.";
@@ -58,6 +58,7 @@ if (isset($_GET['token']) && is_jwt_valid($_GET['token'])){
     http_response_code(200);
     echo "Le jeton est valide.";
 } else {
+
     // Affiche la page de connexion si le formulaire n'a pas été envoyé ou si le jeton est invalide
     ?>
     <!DOCTYPE html>
@@ -77,4 +78,4 @@ if (isset($_GET['token']) && is_jwt_valid($_GET['token'])){
         </form>
     </body>
     </html>
-<?php }  ?>
+<?php  } ?>
