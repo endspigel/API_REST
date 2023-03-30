@@ -32,6 +32,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login']) && isset($_P
     $mdp = $_POST['mdp'];
 
     if (isValidUser($login, $mdp)){
+        // Vérification du rôle de l'utilisateur
+        $user['role'] = $_SESSION['role'];
+
         $jwt_headers = array('typ' => 'JWT', 'alg' => 'HS256');
         $jwt_payload = array('login' => $login, 'exp' => time() + 60); // expire dans une minute
         $jwt = generate_jwt($jwt_headers, $jwt_payload);
