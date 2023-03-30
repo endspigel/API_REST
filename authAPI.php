@@ -1,4 +1,5 @@
 <?php
+
 // Inclure la bibliothèque pour générer les JWT
 require('jwt_utils.php');
 
@@ -17,6 +18,7 @@ function isValidUser($username, $password){
     // Récupération de l'utilisateur correspondant
     $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
+    // var_dump($user);
     // Vérification si l'utilisateur existe et si le mot de passe fourni correspond au mot de passe stocké en base de données
     if ($user && $password === $user['mdp']) {
         return true;
@@ -24,7 +26,6 @@ function isValidUser($username, $password){
         return false;
     }
 }
-
 // Vérifie les identifiants envoyés via POST et renvoie un jeton JWT si les identifiants sont valides
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login']) && isset($_POST['mdp'])) {
     $login = $_POST['login'];
@@ -38,27 +39,29 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login']) && isset($_P
         $jwt_payload = array('login' => $login, 'exp' => time() + 60); // expire dans une minute
         $jwt = generate_jwt($jwt_headers, $jwt_payload);
 
-        // Stockage du jeton JWT dans une variable de session
-        $_SESSION['token'] = $jwt;
-
-        // Redirection vers la page de profil de l'utilisateur
+        header('Content-Type: application/json');
+        //echo json_encode(array('token' => $jwt));
+        echo "Connexion réussie";
         header('Location: serveurREST.php');
-        exit();
     } else {
         http_response_code(401); // Non autorisé
         echo "Nom d'utilisateur ou mot de passe incorrect.";
     }
+
+    /*if (isValidUser($login, $mdp)){
+        echo "Connexion réussie !";
+    } else {
+        http_response_code(401); // Non autorisé
+        echo "Nom d'utilisateur ou mot de passe incorrect.";
+    }*/
 }
 
 // Vérifie si un jeton JWT est valide
-if (isset($_SESSION['token']) && is_jwt_valid($_SESSION['token'])){
-    // Récupération des données de l'utilisateur depuis le jeton JWT
-    $jwt_data = decode_jwt($_SESSION['token']);
-
-    // Affichage de la page de profil de l'utilisateur
-    echo "Bienvenue, " . $jwt_data['login'] . " !";
-    // ...
+if (isset($_GET['token']) && is_jwt_valid($_GET['token'])){
+    http_response_code(200);
+    echo "Le jeton est valide.";
 } else {
+
     // Affiche la page de connexion si le formulaire n'a pas été envoyé ou si le jeton est invalide
     ?>
     <!DOCTYPE html>
@@ -74,11 +77,10 @@ if (isset($_SESSION['token']) && is_jwt_valid($_SESSION['token'])){
             <input type="text" id="login" name="login"><br><br>
             <label for="password">Mot de passe :</label>
             <input type="password" id="mdp" name="mdp"><br><br>
-            <input type="submit" value="Connexion">
+            <input type="submit" value="Se connecter">
         </form>
     </body>
     </html>
-<<<<<<< Updated upstream
 
 <?php  }
 
@@ -94,9 +96,3 @@ endwhile;
 
 ?>
 
-=======
-    <?php
-}
-?>
-
->>>>>>> Stashed changes
