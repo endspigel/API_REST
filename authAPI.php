@@ -30,7 +30,7 @@ function isValidUser($username, $password){
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login']) && isset($_POST['mdp'])) {
     $login = $_POST['login'];
     $mdp = $_POST['mdp'];
-
+    
     if (isValidUser($login, $mdp)){
         $jwt_headers = array('typ' => 'JWT', 'alg' => 'HS256');
         $jwt_payload = array('login' => $login, 'exp' => time() + 60); // expire dans une minute
@@ -78,7 +78,9 @@ if (isset($_GET['token']) && is_jwt_valid($_GET['token'])){
         </form>
     </body>
     </html>
+
 <?php  }
+
 $database = new PDO('mysql:host=localhost;dbname=api-auth;=utf8mb4', 'root', '');
 
 $requete = $database->prepare('SELECT contenu FROM article');
@@ -86,6 +88,8 @@ $requete->execute();
 
 while($result = $requete->fetch()):
     echo $result['contenu'];
+
 endwhile;
 
 ?>
+
