@@ -1,14 +1,25 @@
 <?php
     require('jwt_utils.php');
 
+    $database = new PDO('mysql:host=localhost;dbname=api-auth;=utf8mb4', 'root', '');
+
+    $requete = $database->prepare('SELECT date_publication, contenu, login FROM article');
+    $requete->execute();
+
     $jwt = get_bearer_token(); // fonction qui extrait le jeton JWT de la requête
 
 
     //C'est pas bon car on a le cas où l'utilisateur n'est pas authentifié 
     if ($jwt === null) {
+        while($result = $requete->fetch()):?>
+            <tr>
+              <td><?php echo $result['contenu'].' '.$result['date_publication'].' '.$result['login'];?><br></br>
+        </tr>
+        <?php 
+        endwhile;
         // Jeton JWT manquant dans la requête
-        http_response_code(401); // Non autorisé
-        echo 'Authentification requise pour accéder à cette page.';
+        //http_response_code(401); // Non autorisé
+        //echo 'Authentification requise pour accéder à cette page.';
         exit();
     }
     
@@ -61,6 +72,7 @@
                     break;
                 case "POST":
                     $query = "INSERT INTO article";
+                    
             }
             break;
         default:
