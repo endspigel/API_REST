@@ -78,7 +78,9 @@ if (isset($_GET['token']) && is_jwt_valid($_GET['token'])){
         </form>
     </body>
     </html>
-    <?php  }
+
+<?php  }
+
 $database = new PDO('mysql:host=localhost;dbname=api-auth;=utf8mb4', 'root', '');
 
 $requete = $database->prepare('SELECT contenu FROM article');
@@ -86,4 +88,8 @@ $requete->execute();
 
 while($result = $requete->fetch()):
     echo $result['contenu'];
+
 endwhile;
+
+?>
+
