@@ -36,22 +36,20 @@ switch($user_role){
         // DELETE : supprimer n'importe quel article
         switch ($http_method){
             case "GET":
-                $query = "SELECT * FROM article";
-                $select = $database->prepare($query);
-                $select->execute(array());
-                $data = $select -> fetchAll();
-                echo json_encode($data);
+                if(!empty($_GET['id_article'])){
+                    $reponse = getById($id);
+                } else {
+                    $response = getAllDataForModePubli();
+                }
+                deliver_response(200, "Votre message", $reponse);
                 break;
             case "DELETE":
                 if(!empty($_GET['id_article'])){
                     $id = htmlspecialchars($_GET['id_article']);
-                    $query = "DELETE FROM article WHERE id_article=$id";
-                    $delete = $database->prepare($query);
-                    $delete ->execute(array());
-                    http_response_code(204); // No Content
+                    $response = deletePhrase($id);
+                    deliver_response(204, "Article bien supprimé", $reponse);
                 } else {
-                    http_response_code(400); // Bad Request
-                    echo json_encode(array("message" => "L'identifiant de l'article est manquant."));
+                    deliver_response(400, "L'identifiant de l'article est manquant", $reponse);
                 }
                 break;
             default:
@@ -60,6 +58,7 @@ switch($user_role){
         }
         break;
     case('Publisher'):
+        // AJOUTER LE GET POUR QU4IL VOIT SES ARTICLES A LUI
         // POST publier un nouvel article
         // GET consulter un article
         // GET consulter tous les articles
@@ -68,38 +67,18 @@ switch($user_role){
         switch($http_method){
             case "GET":
                 if(!empty($_GET['id_article'])){
-                    $id = htmlspecialchars($_GET['id_article']);
-                    $query = "SELECT * FROM article WHERE id_article = $id";
-                    $select = $database->prepare($query);
-                    $select->execute(array());
-                    $data = $select -> fetchAll();
-                    if(count($data) == 0){
-                        http_response_code(404); // Not Found
-                        echo json_encode(array("message" => "Article non trouvé."));
-                    }
-                    else{
-                        echo json_encode($data);
-                    }
+                    $reponse = getById($id);
                 } else {
-                    $query = "SELECT * FROM article";
-                    $select = $database->prepare($query);
-                    $select->execute(array());
-                    $data = $select -> fetchAll();
-                    echo json_encode($data);
+                    $response = getAllDataForModePubli();
                 }
+                deliver_response(200, "Votre message", $reponse);
                 break;
             case "POST":
                 $json = file_get_contents('php://input');
                 $article = json_decode($json, true);
                 $contenu = $article['contenu'];
-                $date_publication = date('Y-m-d H:i:s');
-                $query = "INSERT INTO article (date_publication, contenu, login) VALUES (:date_publication, :contenu, :login)";
-                $stmt = $database->prepare($query);
-                $stmt->bindParam(':date_publication', $date_publication);
-                $stmt->bindParam(':contenu', $contenu);
-                $stmt->bindParam(':login', $login);
-                $stmt->execute();
-                http_response_code(201); // Created
+                if (!empty($contenu)){
+                    $reponse=postNewArticle($contenu);
                 break;
             case "PUT":
                 if(!empty($_GET['id_article'])){
@@ -107,28 +86,19 @@ switch($user_role){
                     $json = file_get_contents('php://input');
                     $article = json_decode($json, true);
                     $contenu = $article['contenu'];
-                    $query = "UPDATE article SET contenu=:contenu WHERE id_article=$id AND login=:login";
-                    $stmt = $database->prepare($query);
-                    $stmt->bindParam(':contenu', $contenu);
-                    $stmt->bindParam(':login', $login);
-                    $stmt->execute();
-                    http_response_code(204); // No Content
+                    $reponse = putPhrase($id, $contenu);
+                    deliver_response(200, "Votre message", $reponse);
                 } else {
-                    http_response_code(400); // Bad Request
                     echo json_encode(array("message" => "L'identifiant de l'article est manquant."));
                 }
                 break;
             case "DELETE":
                 if(!empty($_GET['id_article'])){
                     $id = htmlspecialchars($_GET['id_article']);
-                    $query = "DELETE FROM article WHERE id_article=$id AND login=:login";
-                    $delete = $database->prepare($query);
-                    $delete ->bindParam(':login', $login);
-                    $delete ->execute(array());
-                    http_response_code(204); // No Content
+                    $reponse = deletePhrase($id);
+                    deliver_response(204, "La phrase a bien été supprimé", $response);
                 } else {
-                    http_response_code(400); // Bad Request
-                    echo json_encode(array("message" => "L'identifiant de l'article est manquant."));
+                    deliver_response(400, "L'identifiant de l'article est manquant.", null)
                 }
                 break;
             default:
