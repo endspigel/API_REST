@@ -80,6 +80,7 @@ switch($user_role){
                 if (!empty($contenu)){
                     $reponse=postNewArticle($contenu);
                 break;
+                }
             case "PUT":
                 if(!empty($_GET['id_article'])){
                     $id = htmlspecialchars($_GET['id_article']);
