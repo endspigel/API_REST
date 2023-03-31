@@ -11,7 +11,7 @@ $jwt = get_bearer_token(); // fonction qui extrait le jeton JWT de la requête
 // Vérification de l'authentification
 if ($jwt === null) {
     http_response_code(401); // Non autorisé
-    echo json_encode(array("message" => "Authentification requise pour accéder à cette page."));
+    echo json_encode(array("message" => "Authentification requise pour acceder a cette page."));
     exit();
 }
 
