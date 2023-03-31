@@ -9,7 +9,7 @@ $requete->execute();
 $jwt = get_bearer_token(); // fonction qui extrait le jeton JWT de la requête
 
 // Vérification de l'authentification
-if ($jwt === null) {
+if (is_jwt_valid($jwt)) {
     http_response_code(401); // Non autorisé
     echo json_encode(array("message" => "Authentification requise pour acceder a cette page."));
     exit();
@@ -79,6 +79,7 @@ switch($user_role){
                 $contenu = $article['contenu'];
                 if (!empty($contenu)){
                     $reponse=postNewArticle($contenu);
+                }
                 break;
                 }
             case "PUT":
