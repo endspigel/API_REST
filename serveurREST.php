@@ -99,7 +99,7 @@ switch($user_role){
                     $reponse = deletePhrase($id);
                     deliver_response(204, "La phrase a bien été supprimé", $response);
                 } else {
-                    deliver_response(400, "L'identifiant de l'article est manquant.", null)
+                    deliver_response(400, "L'identifiant de l'article est manquant.", null);
                 }
                 break;
             default:
