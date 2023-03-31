@@ -67,4 +67,14 @@ function connexionBD(){
         $insert = $database -> prepare($query);
         $insert -> execute($id);
     }
+
+    // Récupération du rôle de l'utilisateur
+    function getRole($id){
+        $database = connexionBD();
+        $stmt = $database->prepare('SELECT nom FROM Role WHERE id = (SELECT id FROM Utilisateur WHERE login = :login)');
+        $stmt->bindParam(':login', $login);
+        $stmt->execute();
+        $user_role = $stmt->fetchColumn();
+        return $user_role;
+    }
 ?>
