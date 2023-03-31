@@ -1,0 +1,372 @@
+{
+	"info": {
+		"_postman_id": "bbbfa785-888c-456a-9608-2162fe31064f",
+		"name": "api publications",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "25662431"
+	},
+	"item": [
+		{
+			"name": "Authentification",
+			"item": [
+				{
+					"name": "get token Moderateur",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"login\":\"spiderman\", \"mdp\":\"webslinger\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/authAPI.php",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"authAPI.php"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get token deadpool",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"login\":\"deadpool\", \"mdp\":\"chimichanga\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/authAPI.php",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"authAPI.php"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Anonymous",
+			"item": [
+				{
+					"name": "get as anonymous",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "{{URL}}/.php",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								".php"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "publisher",
+			"item": [
+				{
+					"name": "get as publisher",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{publisherTokenQ}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{URL}}/serveurREST.php",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"serveurREST.php"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Info sur utilisateur",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{publisherTokenQ}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{URL}}/serveurREST.php?login=2",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"serveurREST.php"
+							],
+							"query": [
+								{
+									"key": "login",
+									"value": "2"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Info sur publication",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{publisherTokenQ}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{URL}}/serveurREST.php?id_article=13",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"serveurREST.php"
+							],
+							"query": [
+								{
+									"key": "id_article",
+									"value": "13"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "creer publication",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{publisherTokenN}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"contenu\": \"Idée (de Noa) : Une école qui apprend à repasser des chaussettes un peu humides.\"\n}"
+						},
+						"url": {
+							"raw": "{{URL}}/serveurREST.php",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"serveurREST.php"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "modifier publication",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{publisherTokenN}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"idPost\": 18,\n    \"contenu\": \"Idée (de Benois) : Logiciel pour passer ses heures de conduite en ligne\"\n}"
+						},
+						"url": {
+							"raw": "{{URL}}/serveurREST.php",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"serveurREST.php"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Supprimer un post",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{publisherTokenQ}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"idPost\": 8\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/serveurREST.php",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"serveurREST.php"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "moderator",
+			"item": [
+				{
+					"name": "get as moderator",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{moderatorToken}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{URL}}/serveurREST.php",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"serveurREST.php"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Supprimer un post",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{moderatorToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"idPost\": 9\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/serveurREST.php",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"serveurREST.php"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "URL",
+			"value": "http://www.localhost/API_REST",
+			"type": "string"
+		},
+		{
+			"key": "moderatorToken",
+			"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJsb2dpbiI6InNwaWRlcm1hbiIsInJvbGUiOiJNb2RlcmF0b3IiLCJleHAiOjE2ODAyOTMzMDV9.FEWWxKm3b2gNKoBOdcgYhomQ16OQtEOgJMtQ_VDGwOI\n"
+		},
+		{
+			"key": "publisherTokenD",
+			"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJsb2dpbiI6ImRlYWRwb29sIiwicm9sZSI6IlB1Ymxpc2hlciIsImV4cCI6MTY4MDI5NjM3OX0.Rp33n10ujVAu6-GGB1XVg3xZ-UVaeQ4iBJaFpxSXMks"
+		},
+		{
+			"value": "",
+			"type": "string",
+			"disabled": true
+		},
+		{
+			"value": "",
+			"disabled": true
+		}
+	]
+}
